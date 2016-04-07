@@ -19,8 +19,4 @@ $route = new Routes();
 
 $route->index($urls, $url);
 
-//Routes\index($urls, $url);
-
-
-
 ?>
