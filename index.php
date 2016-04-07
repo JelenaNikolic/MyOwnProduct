@@ -8,14 +8,18 @@ if(isset($_GET['url'])){
 }
 
 //echo $url;
+use routes\Routes;
 
-require 'controllers/routes.php';
+/*load loader*/
+require_once 'system/loader.php';
 
-$urls = array('neki/prvi/url','neki/dugi/url','neki/lep/konj');
+$urls = array('neki/prvi/url','neki/drugi/url','lep/konj');
 
 $route = new Routes();
 
-$route->index($urls);
+$route->index($urls, $url);
+
+//Routes\index($urls, $url);
 
 
 
