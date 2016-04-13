@@ -14,6 +14,7 @@ class Routes {
 		if(in_array($url, $urls)){ //da li mi ovo uopste treba ili ne?
 			$url = explode('/',$url);
 			$number_of_arguments = count($url);
+			//echo $number_of_arguments;
 			
 			$controller = $url[0];
 			
@@ -23,6 +24,7 @@ class Routes {
 				case 1:                        //slucaj 'myownproduct/shoes' gde se listaju sve cipele, muske, zenske, decije, za sva godisnja doba
 					require $controller.'/controllers/'.$controller.'.php';
 					$application = new $controller();
+					break;
 				case 2:
 					if($url[1] == "add"){      // slucaj 'myownproduct/shoes/add' gde se dodaju nove cipele (muske, zenske, decije)
 						$method = $url[1];
@@ -40,6 +42,7 @@ class Routes {
 						require $controller.'/controllers/'.$controller.'.php';
 						$application = new $controller($param);
 					}
+					break;
 				case 3:
 					if($url[1] == "edit"){  // slucaj 'myownproduct/shoes/edit/id' gde se edituju cipele (muske, zenske, decije)
 						$method = $url[1];
@@ -59,7 +62,9 @@ class Routes {
 						require $controller.'/controllers/'.$controller.'.php';
 						$application = new $controller($param1, $param2);
 					}
-				case 4:
+					break;
+				default:
+					echo "Error 404";
 			}
 			
 		}else{
