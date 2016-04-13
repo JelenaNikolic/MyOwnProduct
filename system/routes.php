@@ -16,51 +16,41 @@ class Routes {
 			$number_of_arguments = count($url);
 			//echo $number_of_arguments;
 			
+			//print_r($url);
+			
 			$controller = $url[0];
+			$path = $controller.'/controllers/'.$controller.'.php';
+			
+			if(file_exists($path)){
+				require $path;
+			}
+			
+			$application = new $controller();
 			
 			//echo array_search($url, $urls); // na kojem mestu u okviru niza url-ova se nalazi trazeni string (url)
 			
 			switch($number_of_arguments){
 				case 1:                        //slucaj 'myownproduct/shoes' gde se listaju sve cipele, muske, zenske, decije, za sva godisnja doba
-					require $controller.'/controllers/'.$controller.'.php';
-					$application = new $controller();
+					$application->index();
 					break;
 				case 2:
 					if($url[1] == "add"){      // slucaj 'myownproduct/shoes/add' gde se dodaju nove cipele (muske, zenske, decije)
 						$method = $url[1];
-						
-						$path = $controller.'/controllers/'.$controller.'.php';
-						
-						if(file_exists($path)){
-							require $path;
-						}
-						
-						$application = new $controller();
 						$application->$method();
 					}else{                     // slucaj 'myownproduct/shoes/woman' gde se listaju sve zenske/muske/decije cipele - za sva godisnja doba
 						$param = $url[1];
-						require $controller.'/controllers/'.$controller.'.php';
-						$application = new $controller($param);
+						$application->index($param);
 					}
 					break;
 				case 3:
 					if($url[1] == "edit"){  // slucaj 'myownproduct/shoes/edit/id' gde se edituju cipele (muske, zenske, decije)
 						$method = $url[1];
 						$param = $url[2];
-						
-						$path = $controller.'/controllers/'.$controller.'.php';
-						
-						if(file_exists($path)){
-							require $path;
-						}
-						
-						$application = new $controller();
 						$application->$method($param);
 					}else{                // slucaj 'myownproduct/shoes/woman/spring' gde se listaju sve zenske prolecne cipele
-						$param1 = $url[1];
+						$param = $url[1];
 						$param2 = $url[2];
-						require $controller.'/controllers/'.$controller.'.php';
-						$application = new $controller($param1, $param2);
+						$application->index($param, $param2);
 					}
 					break;
 				default:
