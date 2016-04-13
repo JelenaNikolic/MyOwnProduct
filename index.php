@@ -1,22 +1,21 @@
 <?php
 
-
 if(isset($_GET['url'])){
-	$url = $_GET['url'];	
+	$url = rtrim($_GET['url'],'/');	
 }else{
-	$url = "index";
+	$url = "shoes";
 }
-
 //echo $url;
 use routes\Routes;
 
 /*load loader*/
 require_once 'system/loader.php';
 
-$urls = array('neki/prvi/url','neki/drugi/url','lep/konj');
+//ovo izvlacimo iz npr application_routes.php gde su definisane sve rute i odgovarajuci controlleri i modeli
+$urls = array('neki/prvi/url','neki/drugi/url','lep/konj','products/listAll','products');
 
-$route = new Routes();
+$route = new Routes($url, $urls);
 
-$route->index($urls, $url);
+//$route->index($urls, $url);
 
 ?>
